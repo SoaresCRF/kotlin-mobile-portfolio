@@ -1,0 +1,152 @@
+<resources>
+    <!-- =================================================== -->
+    <!-- Nome do Aplicativo -->
+    <!-- =================================================== -->
+    <string name="app_name">Soares</string>
+
+    <!-- =================================================== -->
+    <!-- Títulos da Bottom Navigation -->
+    <!-- =================================================== -->
+    <string name="bottom_navigation_title_about">Sobre mim</string>
+    <string name="bottom_navigation_title_education">Formação</string>
+    <string name="bottom_navigation_title_projects">Projetos</string>
+    <string name="bottom_navigation_title_contact">Contato</string>
+
+    <!-- =================================================== -->
+    <!-- Títulos e Subtítulos das Telas -->
+    <!-- =================================================== -->
+    <!-- Tela: Sobre Mim -->
+    <string name="title_layout_about">🐞 Debugando o Dev por trás dos códigos…</string>
+    <string name="accessibility_title_layout_about">Debugando o Dev por trás dos códigos…</string>
+
+    <!-- Tela: Formação -->
+    <string name="title_layout_education">🧠 Conhecimentos Instalados</string>
+    <string name="accessibility_title_layout_education">Conhecimentos Instalados</string>
+
+    <!-- Subtítulos Formação -->
+    <string name="subtitle_layout_education_1">📚 Formação Acadêmica e Cursos</string>
+    <string name="accessibility_subtitle_layout_education_1">Formação Acadêmica e Cursos</string>
+
+    <string name="subtitle_layout_education_2">💻 Tecnologias</string>
+    <string name="accessibility_subtitle_layout_education_2">Tecnologias</string>
+
+    <!-- =================================================== -->
+    <!-- Tela Inicial (Intro) -->
+    <!-- =================================================== -->
+    <string name="title_intro">Bem-vindo ao meu portfólio!</string>
+    <string name="button_text_intro">EXPLORAR AGORA 🚀</string>
+    <string name="accessibility_button_text_intro">EXPLORAR AGORA</string>
+
+    <!-- =================================================== -->
+    <!-- Filtros, Busca e Mensagens Gerais -->
+    <!-- =================================================== -->
+    <string name="all_languages">Todas</string>
+    <string name="search_by_name">🔍 Buscar por nome…</string>
+    <string name="accessibility_search_by_name">Buscar por nome…</string>
+    <string name="no_internet_connection">Sem conexão com a internet.</string>
+
+    <!-- =================================================== -->
+    <!-- Modos de Ordenação -->
+    <!-- =================================================== -->
+    <string name="sort_recent">Exibindo: Recentes</string>
+    <string name="sort_oldest">Exibindo: Antigos</string>
+    <string name="sort_alphabetical">Exibindo: A–Z</string>
+    <string name="sort_default">Exibindo</string>
+
+    <!-- =================================================== -->
+    <!-- Textos Dinâmicos e de Status -->
+    <!-- =================================================== -->
+    <string name="repository_count_format">📂 Exibindo %1$d projetos de %2$d no total</string>
+    <string name="accessibility_repository_count_format">Exibindo %1$d projetos de %2$d no total</string>
+    <string name="last_updated_at">Atualizado em: %1$s</string>
+
+    <!-- =================================================== -->
+    <!-- Biografia (Sobre Mim) -->
+    <!-- =================================================== -->
+    <string name="about_paragraph_1"><![CDATA[
+        Olá, 🌎! Me chamo <b>Matheus Soares</b> 👨‍💻. Sou estudante de <b>Ensino Superior</b> em <b>Análise e Desenvolvimento de Sistemas</b>, com grande interesse no universo da <b>Tecnologia</b> e da <b>Programação</b>. 💡🖥️
+    ]]></string>
+    <string name="accessibility_about_paragraph_1"><![CDATA[
+        Olá! Me chamo Matheus Soares. Sou estudante de Ensino Superior em Análise e Desenvolvimento de Sistemas, com grande interesse no universo da Tecnologia e da Programação.
+    ]]></string>
+
+    <string name="about_paragraph_2"><![CDATA[
+        Já tive contato com diversas áreas da <b>Tecnologia da Informação</b>, como <b>Desenvolvimento Web</b> e <b>Mobile</b>. Gosto de explorar tanto o que o usuário vê quanto o que acontece por trás das aplicações, navegando entre <b>Front-end</b> e <b>Back-end</b>, além de trabalhar com <b>Banco de Dados</b> e outras tecnologias relacionadas. 🚀
+    ]]></string>
+    <string name="accessibility_about_paragraph_2"><![CDATA[
+        Já tive contato com diversas áreas da Tecnologia da Informação, como Desenvolvimento Web e Mobile. Gosto de explorar tanto o que o usuário vê quanto o que acontece por trás das aplicações, navegando entre Front-end e Back-end, além de trabalhar com Banco de Dados e outras tecnologias relacionadas.
+    ]]></string>
+
+    <string name="about_paragraph_3"><![CDATA[
+        Tenho facilidade em transformar <b>ideias</b> em <b>soluções práticas</b> e me envolvo ativamente em cada etapa dos projetos — do <b>planejamento</b> até a <b>entrega final</b>. Busco compreender as <b>necessidades</b> e <b>objetivos</b> para desenvolver <b>soluções eficientes</b> e <b>funcionais</b>. 🛠️
+    ]]></string>
+    <string name="accessibility_about_paragraph_3"><![CDATA[
+        Tenho facilidade em transformar ideias em soluções práticas e me envolvo ativamente em cada etapa dos projetos — do planejamento até a entrega final. Busco compreender as necessidades e objetivos para desenvolver soluções eficientes e funcionais.
+    ]]></string>
+
+    <string name="about_paragraph_4"><![CDATA[
+        Ainda estou explorando o vasto campo da <b>T.I.</b>, mantendo a mente aberta para diferentes caminhos e oportunidades. 🔍 Gosto de experimentar novas <b>tecnologias</b>, aprender com a <b>prática</b> e seguir evoluindo como <b>desenvolvedor</b>, sempre em busca de <b>desafios</b> que me façam crescer <b>pessoalmente</b> e <b>profissionalmente</b>. 📈
+    ]]></string>
+    <string name="accessibility_about_paragraph_4"><![CDATA[
+        Ainda estou explorando o vasto campo da T.I., mantendo a mente aberta para diferentes caminhos e oportunidades. Gosto de experimentar novas tecnologias, aprender com a prática e seguir evoluindo como desenvolvedor, sempre em busca de desafios que me façam crescer pessoalmente e profissionalmente.
+    ]]></string>
+
+    <string name="about_paragraph_5"><![CDATA[
+        Fora do mundo da programação, sou fã de <b>esportes</b> e <b>games</b>. Curto jogar online 🎮, sou torcedor do <b>Flamengo</b> ❤️🖤 e do <b>Real Madrid</b> 🤍🖤, além de ser grande admirador do <b>Cristiano Ronaldo</b> ⚽👑 e entusiasta de <b>xadrez</b>♟️!
+    ]]></string>
+    <string name="accessibility_about_paragraph_5"><![CDATA[
+        Fora do mundo da programação, sou fã de esportes e games. Curto jogar online, sou torcedor do Flamengo e do Real Madrid, além de ser grande admirador do Cristiano Ronaldo e entusiasta de xadrez!
+    ]]></string>
+
+    <!-- =================================================== -->
+    <!-- Cursos e Formação Acadêmica -->
+    <!-- =================================================== -->
+    <string name="course_1"><![CDATA[<b>Graduando em Análise e Desenvolvimento de Sistemas</b> – UNINTER]]></string>
+    <string name="course_2"><![CDATA[<b>Curso Técnico em Desenvolvimento de Sistemas</b> – SENAI/BA]]></string>
+    <string name="course_3"><![CDATA[<b>Desenvolvimento Android Completo</b> – Udemy (online)]]></string>
+    <string name="course_4"><![CDATA[<b>Desenvolvimento Web Completo</b> – Udemy (online)]]></string>
+    <string name="course_5"><![CDATA[<b>Desenvolvimento Web Moderno com JavaScript</b> – Udemy (online)]]></string>
+    <string name="course_6"><![CDATA[<b>Python 3 do Básico ao Avançado</b> – Udemy (online)]]></string>
+    <string name="course_7"><![CDATA[<b>Algoritmos e Lógica de Programação</b> – Udemy (online)]]></string>
+    <string name="course_8"><![CDATA[<b>Java POO</b> – Curso em Vídeo (online)]]></string>
+    <string name="course_9"><![CDATA[<b>Java Básico</b> – Curso em Vídeo (online)]]></string>
+    <string name="course_10"><![CDATA[<b>MySQL</b> – Curso em Vídeo (online)]]></string>
+
+    <!-- =================================================== -->
+    <!-- Tecnologias e Habilidades -->
+    <!-- =================================================== -->
+    <string name="tech_1"><![CDATA[<b>Linguagens de Programação:</b> Python, Java, PHP, Java (Mobile)]]></string>
+    <string name="tech_2"><![CDATA[<b>Desenvolvimento Web (Front-end):</b> HTML, CSS, JavaScript]]></string>
+    <string name="tech_3"><![CDATA[<b>Frameworks e Bibliotecas:</b> Django, Laravel]]></string>
+    <string name="tech_4"><![CDATA[<b>Bancos de Dados:</b> PostgreSQL, MySQL]]></string>
+    <string name="tech_5"><![CDATA[<b>Outros:</b> Git, GitHub]]></string>
+
+    <!-- =================================================== -->
+    <!-- Tela de Contato -->
+    <!-- =================================================== -->
+    <string name="title_contact">Um Jovem desenvolvedor…</string>
+    <string name="subtitle_contact_me">Entre em contato</string>
+    <string name="email">E-mail</string>
+    <string name="github">GitHub</string>
+    <string name="instagram">Instagram</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="subtitle_application">Aplicativo</string>
+    <string name="play_store">Ver na loja</string>
+
+    <!-- Acessibilidade - Contato -->
+    <string name="accessibility_email">Enviar E-mail</string>
+    <string name="accessibility_github">Acessar perfil no GitHub</string>
+    <string name="accessibility_instagram">Acessar perfil no Instagram</string>
+    <string name="accessibility_linkedin">Acessar perfil no LinkedIn</string>
+    <string name="accessibility_play_store">Exibir o aplicativo na Play Store</string>
+
+    <string name="accessibility_review_intro_screen">Rever tela inicial</string>
+    <string name="accessibility_confirmation_action">Salvar escolha</string>
+
+    <!-- =================================================== -->
+    <!-- Diálogos (Configurações) -->
+    <!-- =================================================== -->
+    <string name="dialog_title_intro_config">Preferência de Inicialização</string>
+    <string name="dialog_message_intro_config">Deseja exibir a tela inicial sempre que o aplicativo for iniciado?</string>
+    <string name="dialog_message_checkbox_intro_config">Exibir tela inicial na inicialização do aplicativo</string>
+</resources>

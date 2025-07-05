@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.education.EducationFragment">
+
+    <!-- AppBarLayout com comportamento fixo no topo -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_background"
+        android:elevation="4dp"
+        android:paddingTop="16dp">
+
+        <!-- Título principal -->
+        <TextView
+            android:id="@+id/textTitleEducation"
+            style="@style/TitleSectionStyle"
+            android:contentDescription="@string/accessibility_title_layout_education"
+            android:text="@string/title_layout_education" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Conteúdo com NestedScrollView para suportar o CoordinatorLayout -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Subtítulo Formação e Cursos -->
+            <TextView
+                android:id="@+id/textSubtitleEducation"
+                style="@style/SubtitleEducationStyle"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/accessibility_subtitle_layout_education_1"
+                android:text="@string/subtitle_layout_education_1" />
+
+            <!-- RecyclerView de cursos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCourses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <!-- Subtítulo Tecnologias -->
+            <TextView
+                android:id="@+id/textSubtitleEducation2"
+                style="@style/SubtitleEducationStyle"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/accessibility_subtitle_layout_education_2"
+                android:text="@string/subtitle_layout_education_2" />
+
+            <!-- RecyclerView de tecnologias -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTechnologies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

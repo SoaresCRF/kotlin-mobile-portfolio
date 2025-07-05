@@ -1,0 +1,123 @@
+# Gradle
+.gradle/
+build/
+**/build/
+**/release/
+!gradle/wrapper/gradle-wrapper.jar
+gradle.properties~
+gradle-wrapper.properties~
+gradle-app.setting
+
+# Gradle daemon
+build-cache/
+**/gradle.lockfile
+
+# Local Properties (Configuração local de SDK)
+local.properties
+/local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Itens específicos do Android Studio
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+
+# Build Output
+/bin/
+gen/
+out/
+captures/
+**/captures/
+
+# Native / C++ / NDK builds
+.externalNativeBuild/
+.cxx/
+obj/
+
+# Cache / Logs / Temporários
+*.log
+*.tmp
+*.temp
+*.orig
+
+# Lint outputs
+lint/intermediates/
+lint/generated/
+lint/outputs/
+**/lint-results-*.xml
+**/lint-results-*.html
+**/lint-results-*.sarif
+
+# Arquivos APK / AAB / DEX
+*.apk
+*.ap_
+*.dex
+*.aab
+
+# Crash / Heap Dumps
+*.hprof
+
+# Proguard / R8 / Mapping
+mapping.txt
+*/mapping.txt
+**/outputs/mapping/
+
+# Firebase / Google Services / Crashlytics
+google-services.json
+firebase-service-account.json
+crashlytics-build.properties
+
+# Keystore / Assinatura
+*.jks
+*.keystore
+signing.properties
+key.properties
+*.pem
+*.p12
+*.pfx
+*.asc
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Testes Locais / Relatórios
+test-results/
+outputs/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Kotlin Specific
+.kotlin/
+*.kotlin_module
+
+# IDEs diversos
+.vscode/
+*.swp
+*.swo
+
+# Cache / Binários diversos
+*.class
+*.lock
+*.bak
+
+#arquivo dotenv
+.env

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/dialog_title_intro_config"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_gray"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Linha Divisória -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray" />
+
+    <!-- Mensagem -->
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/dialog_message_intro_config"
+        android:textColor="@color/dark_gray"
+        android:textSize="18sp" />
+
+    <!-- CheckBox de confirmação -->
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkShowIntro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:buttonTint="@color/dark_gray"
+        android:text="@string/dialog_message_checkbox_intro_config"
+        android:textColor="@color/dark_gray"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/accessibility_confirmation_action"
+        android:focusable="true"
+        android:padding="12dp"
+        app:srcCompat="@drawable/ic_check" />
+</LinearLayout>
