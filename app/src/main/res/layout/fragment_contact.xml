@@ -1,98 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
+    android:fillViewport="true"
     tools:context=".ui.contact.ContactFragment">
 
-    <ImageButton
-        android:id="@+id/buttonResetIntro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/accessibility_review_intro_screen"
-        android:padding="8dp"
-        android:src="@drawable/ic_restart" />
-
-    <ImageView
-        android:id="@+id/imageLogo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:importantForAccessibility="no"
-        android:src="@drawable/logo" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/title_contact"
-        android:textAlignment="center"
-        android:textColor="@color/dark_gray"
-        android:textSize="16sp"
-        android:textStyle="italic" />
+        <ImageButton
+            android:id="@+id/buttonResetIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/accessibility_review_intro_screen"
+            android:padding="8dp"
+            android:src="@drawable/ic_restart" />
 
-    <!-- Linha Divisória -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray" />
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/ContactTitleText"
-        android:layout_marginTop="48dp"
-        android:text="@string/subtitle_contact_me" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/title_contact"
+            android:textAlignment="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/textEmail"
-        style="@style/ContactLinkText"
-        android:contentDescription="@string/accessibility_email"
-        android:text="@string/email"
-        app:drawableLeftCompat="@drawable/ic_email" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray" />
 
-    <TextView
-        android:id="@+id/textGitHub"
-        style="@style/ContactLinkText"
-        android:contentDescription="@string/accessibility_github"
-        android:text="@string/github"
-        android:textColorLink="@color/dark_gray"
-        app:drawableLeftCompat="@drawable/ic_github" />
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/ContactTitleText"
+            android:layout_marginTop="48dp"
+            android:text="@string/subtitle_contact_me" />
 
-    <TextView
-        android:id="@+id/textInstagram"
-        style="@style/ContactLinkText"
-        android:contentDescription="@string/accessibility_instagram"
-        android:text="@string/instagram"
-        android:textColorLink="@color/dark_gray"
-        app:drawableLeftCompat="@drawable/ic_instagram" />
+        <TextView
+            android:id="@+id/textEmail"
+            style="@style/ContactLinkText"
+            android:contentDescription="@string/accessibility_email"
+            android:text="@string/email"
+            app:drawableLeftCompat="@drawable/ic_email" />
 
-    <TextView
-        android:id="@+id/textLinkedIn"
-        style="@style/ContactLinkText"
-        android:contentDescription="@string/accessibility_linkedin"
-        android:text="@string/linkedin"
-        android:textColorLink="@color/dark_gray"
-        app:drawableLeftCompat="@drawable/ic_linkedin" />
+        <TextView
+            android:id="@+id/textGitHub"
+            style="@style/ContactLinkText"
+            android:contentDescription="@string/accessibility_github"
+            android:text="@string/github"
+            android:textColorLink="@color/dark_gray"
+            app:drawableLeftCompat="@drawable/ic_github" />
 
-    <TextView
-        android:id="@+id/textView3"
-        style="@style/ContactTitleText"
-        android:layout_marginTop="32dp"
-        android:text="@string/subtitle_application" />
+        <TextView
+            android:id="@+id/textInstagram"
+            style="@style/ContactLinkText"
+            android:contentDescription="@string/accessibility_instagram"
+            android:text="@string/instagram"
+            android:textColorLink="@color/dark_gray"
+            app:drawableLeftCompat="@drawable/ic_instagram" />
 
-    <TextView
-        android:id="@+id/textPlayStore"
-        style="@style/ContactLinkText"
-        android:contentDescription="@string/accessibility_play_store"
-        android:text="@string/play_store"
-        android:textColorLink="@color/dark_gray"
-        app:drawableLeftCompat="@drawable/ic_playstore" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/textLinkedIn"
+            style="@style/ContactLinkText"
+            android:contentDescription="@string/accessibility_linkedin"
+            android:text="@string/linkedin"
+            android:textColorLink="@color/dark_gray"
+            app:drawableLeftCompat="@drawable/ic_linkedin" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/ContactTitleText"
+            android:layout_marginTop="32dp"
+            android:text="@string/subtitle_application" />
+
+        <TextView
+            android:id="@+id/textPlayStore"
+            style="@style/ContactLinkText"
+            android:contentDescription="@string/accessibility_play_store"
+            android:text="@string/play_store"
+            android:textColorLink="@color/dark_gray"
+            app:drawableLeftCompat="@drawable/ic_playstore" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

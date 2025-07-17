@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Paleta base de cores (Material Design) -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
     <!-- Tons de cinza e neutros -->
-    <color name="dark_gray">#616161</color>     <!-- Texto e ícones escuros -->
-    <color name="light_gray">#BDBDBD</color>    <!-- Ícones inativos, bordas -->
-    <color name="dividing_line">#BDBDBD</color> <!-- Linha divisória, mesma cor que light_gray -->
+    <color name="dark_gray">#616161</color>
+    <color name="light_gray">#BDBDBD</color>
+    <color name="dividing_line">#BDBDBD</color>
 
     <!-- Fundos -->
-    <color name="app_background">#F5F5F5</color>       <!-- Fundo geral do app -->
-    <color name="toolbar_background">#E0E0E0</color>    <!-- Fundo da Toolbar (AppBar) -->
-    <color name="bottom_nav_bg">#E0E0E0</color>         <!-- Fundo da BottomNavigationView -->
+    <color name="bg_app">#BDBDBD</color>       <!-- Fundo geral do app -->
+    <color name="bg_content">#F5F5F5</color>   <!-- Fundo geral dos conteúdos -->
 
     <!-- Cores de texto e ícones no Bottom Navigation -->
     <color name="bottom_nav_active">#212121</color>     <!-- Ícone/texto ativo -->
-    <color name="bottom_nav_inactive">#9E9E9E</color>   <!-- Ícone/texto inativo -->
+    <color name="bottom_nav_inactive">#919191</color>   <!-- Ícone/texto inativo -->
 
     <!-- Ripple / efeito de toque -->
-    <color name="bottom_nav_ripple">#BDBDBD</color>     <!-- Cor do ripple ao clicar -->
+    <color name="ripple_effect">#8F8F8F</color>     <!-- Cor do ripple ao clicar -->
 
 </resources>

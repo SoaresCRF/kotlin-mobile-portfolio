@@ -11,9 +11,9 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/toolbar_background"
-        android:elevation="4dp"
-        android:paddingTop="16dp">
+        android:background="@color/bg_app"
+        android:elevation="16dp"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/textRepositoryCount"

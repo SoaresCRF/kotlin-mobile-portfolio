@@ -1,7 +1,9 @@
 package com.dev.soarescrf.soares.ui.activity
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,11 +22,15 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        enableEdgeToEdge()
+
         val insetsController = WindowInsetsControllerCompat(window, window.decorView)
         insetsController.isAppearanceLightStatusBars = true
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setupEdgeToEdge()
 
         val navView: BottomNavigationView = binding.navView
 
@@ -42,5 +48,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    private fun setupEdgeToEdge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.container) { view, insets ->
+            view.setPadding(0, 56, 0, 0)
+            insets
+        }
     }
 }
