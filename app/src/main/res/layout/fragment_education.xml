@@ -9,11 +9,7 @@
     <!-- AppBarLayout com comportamento fixo no topo -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_app"
-        android:elevation="16dp"
-        android:padding="12dp">
+        style="@style/DefaultAppBarStyle">
 
         <!-- Título principal -->
         <TextView

@@ -2,6 +2,22 @@
 <resources>
 
     <!-- ============================================================= -->
+    <!-- Estilo para o AppBarLayout padrão                            -->
+    <!-- ============================================================= -->
+
+    <!--
+        Estilo reutilizável para AppBars em diversas seções.
+        Define largura, altura, cor de fundo, elevação e paddings.
+    -->
+    <style name="DefaultAppBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/bg_app</item>
+        <item name="android:elevation">16dp</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- ============================================================= -->
     <!-- Estilos para a seção "Sobre Mim" (About)                     -->
     <!-- ============================================================= -->
 

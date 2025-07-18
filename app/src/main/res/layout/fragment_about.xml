@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- AppBarLayout com comportamento fixo no topo -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_app"
-        android:elevation="16dp"
-        android:padding="12dp">
+        style="@style/DefaultAppBarStyle">
 
+        <!-- Título principal -->
         <TextView
             android:id="@+id/textTitleBio"
             style="@style/TitleSectionStyle"
@@ -19,6 +17,7 @@
             android:text="@string/title_layout_about" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Lista de parágrafos sobre mim -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAbout"
         android:layout_width="match_parent"

@@ -6,21 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.projects.ProjectsFragment">
 
-    <!-- Card separado com o contador de projetos -->
+    <!-- AppBarLayout com comportamento fixo no topo -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_app"
-        android:elevation="16dp"
-        android:padding="12dp">
+        style="@style/DefaultAppBarStyle">
 
+        <!-- Título principal -->
         <TextView
             android:id="@+id/textRepositoryCount"
             style="@style/TitleSectionStyle"
-            tools:text="📂 Exibindo 10 projetos de 100 no total"/>
+            tools:text="📂 Exibindo 10 projetos de 100 no total" />
 
-        <!-- Campo de busca -->
+        <!-- Campo de busca por nome -->
         <EditText
             android:id="@+id/editSearch"
             android:layout_width="match_parent"
@@ -38,6 +35,7 @@
             android:padding="8dp"
             android:weightSum="2">
 
+            <!-- Campo de filtro por linguagem -->
             <Spinner
                 android:id="@+id/spinnerLanguage"
                 android:layout_width="0dp"
@@ -45,13 +43,14 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1" />
 
+            <!-- Campo de ordenação por data e A-Z -->
             <Button
                 android:id="@+id/buttonSort"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="@color/dark_gray"
-                tools:text="Exibindo: Recentes"/>
+                tools:text="Exibindo: Recentes" />
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

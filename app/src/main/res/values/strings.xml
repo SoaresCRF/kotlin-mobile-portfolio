@@ -30,6 +30,10 @@
     <string name="subtitle_layout_education_2">💻 Tecnologias</string>
     <string name="accessibility_subtitle_layout_education_2">Tecnologias</string>
 
+    <!-- Tela: Contato -->
+    <string name="title_layout_contact">👾 Curtiu? Aguardo seu "ping"! 😉</string>
+    <string name="accessibility_title_layout_contact">Curtiu? Aguardo seu "ping"!</string>
+
     <!-- =================================================== -->
     <!-- Tela Inicial (Intro) -->
     <!-- =================================================== -->
