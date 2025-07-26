@@ -1,9 +1,12 @@
 package com.dev.soarescrf.soares.ui.projects
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -45,13 +48,15 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Método chamado após criação da view:
-     * - Configura RecyclerView
-     * - Configura spinner de linguagem
-     * - Configura campo de busca
-     * - Configura botão de ordenação
-     * - Observa dados do ViewModel
-     * - Busca repositórios se a rede estiver disponível
+     * Chamado após a criação da view, realiza as configurações iniciais da UI e lógica:
+     * - Inicializa o binding da view
+     * - Configura o RecyclerView para exibir a lista de projetos
+     * - Configura o spinner para seleção de linguagem
+     * - Configura o campo de busca para filtrar projetos
+     * - Configura o botão de ordenação dos projetos
+     * - Observa os dados do ViewModel para atualizar a UI em tempo real
+     * - Dispara a busca de repositórios caso a rede esteja disponível
+     * - Configura o botão "Tentar novamente" para refazer a busca em caso de erro
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,6 +70,11 @@ class ProjectsFragment : Fragment() {
         observeViewModel()
 
         fetchRepositoriesIfNetworkAvailable()
+
+        // Define o comportamento do botão "Tentar novamente", reiniciando a busca por repositórios.
+        binding.buttonRetry.setOnClickListener {
+            viewModel.fetchRepositories()
+        }
     }
 
     /**
@@ -79,11 +89,16 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Limpa binding para evitar memory leaks ao destruir a view
+     * Chamado quando a view está sendo destruída.
+     * - Cancela qualquer job ativo relacionado à busca de repositórios no ViewModel para evitar operações desnecessárias.
+     * - Limpa a referência do binding para prevenir memory leaks, garantindo que a view possa ser coletada pelo garbage collector.
      */
     override fun onDestroyView() {
         super.onDestroyView()
+        // Cancela o job ativo do ViewModel
+        viewModel.cancelFetchJob()
 
+        // Libera o binding
         _binding = null
     }
 
@@ -175,18 +190,96 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Observa as mudanças no LiveData de repositórios da ViewModel.
-     *
-     * Atualiza a lista exibida no RecyclerView, o contador de repositórios,
-     * o texto do botão de ordenação e as opções de filtragem por linguagem
-     * sempre que a lista de repositórios for alterada.
+     * Observa todos os estados do ViewModel relevantes para a UI.
      */
     private fun observeViewModel() {
+        observeRepositories()
+        observeLoadingState()
+        observeErrorMessages()
+        observeTimeoutLoading()
+        observeToastMessages()
+    }
+
+    /**
+     * Observa a lista de repositórios e atualiza o adapter e elementos da UI.
+     */
+    private fun observeRepositories() {
         viewModel.repositoriesLiveData.observe(viewLifecycleOwner) { repositories ->
             projectAdapter.submitList(repositories)
             updateRepositoryCount(repositories.size)
             updateSortButtonText()
             updateLanguageOptions(viewModel.getAvailableLanguages())
+            binding.layoutError.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Observa o estado de carregamento e oculta a área de erro durante o loading.
+     */
+    private fun observeLoadingState() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) binding.layoutError.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Observa mensagens de erro e exibe ou oculta o layout de erro conforme necessário.
+     */
+    private fun observeErrorMessages() {
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            if (!error.isNullOrBlank()) {
+                binding.textError.text = error
+                binding.layoutError.visibility = View.VISIBLE
+            } else {
+                binding.layoutError.visibility = View.GONE
+            }
+        }
+    }
+
+    /**
+     * Observa se o indicador de loading por timeout deve ser exibido.
+     */
+    private fun observeTimeoutLoading() {
+        viewModel.showTimeoutLoading.observe(viewLifecycleOwner) { show ->
+            binding.lottieLoadingProjects.visibility = if (show) View.VISIBLE else View.GONE
+        }
+    }
+
+    /**
+     * Observa eventos de toast e exibe a mensagem, garantindo acessibilidade.
+     */
+    private fun observeToastMessages() {
+        viewModel.toastEvent.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                binding.root.announceForAccessibilityCompat(it)
+                viewModel.clearToast()
+            }
+        }
+    }
+
+    /**
+     * Anuncia um texto para acessibilidade de forma compatível com versões antigas do Android.
+     *
+     * Essa extensão é útil para garantir que usuários com leitores de tela (como TalkBack)
+     * recebam feedback auditivo ou tátil ao interagir com a interface.
+     *
+     * @receiver View onde o evento será anunciado.
+     * @param text Texto que será anunciado pelo serviço de acessibilidade.
+     */
+    fun View.announceForAccessibilityCompat(text: String) {
+        val accessibilityManager =
+            context.getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager
+
+        if (accessibilityManager?.isEnabled == true) {
+            @Suppress("DEPRECATION")
+            val event = AccessibilityEvent.obtain().apply {
+                eventType = AccessibilityEvent.TYPE_VIEW_FOCUSED
+                className = javaClass.name
+                packageName = context.packageName
+                this.text.add(text)
+            }
+            accessibilityManager.sendAccessibilityEvent(event)
         }
     }
 

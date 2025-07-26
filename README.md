@@ -25,7 +25,7 @@ GitHub API
 - *O app não se conecta diretamente à API pública do GitHub, todas as requisições passam primeiro pela minha API backend (Node.js) hospedada no Render.*
 
 ## 📦 Download App
-Baixe a versão mais recente do aplicativo para testar diretamente no seu dispositivo Android: [APK](https://github.com/SoaresCRF/kotlin-mobile-portfolio/releases/download/v1.0.0/soares-v1.0.0.apk "Download do APK") | [PlayStore](# "Ver na PlayStore")
+Baixe a versão mais recente do aplicativo para testar diretamente no seu dispositivo Android: [APK](https://github.com/SoaresCRF/kotlin-mobile-portfolio/releases/download/v1.1.0/soares-v1.1.0.apk "Download do APK") | [PlayStore](# "Ver na PlayStore")
 
 ## 📌 Melhorias futuras
 - Publicação na Google Play Store.

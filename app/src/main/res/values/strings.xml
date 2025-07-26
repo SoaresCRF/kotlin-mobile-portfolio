@@ -48,6 +48,9 @@
     <string name="search_by_name">🔍 Buscar por nome…</string>
     <string name="accessibility_search_by_name">Buscar por nome…</string>
     <string name="no_internet_connection">Sem conexão com a internet.</string>
+    <string name="error_loading_data">Erro ao carregar os dados.</string>
+    <string name="try_again">Tentar Novamente</string>
+    <string name="accessibility_try_again">Erro ao carregar os dados. Clique para tentar novamente.</string>
 
     <!-- =================================================== -->
     <!-- Modos de Ordenação -->

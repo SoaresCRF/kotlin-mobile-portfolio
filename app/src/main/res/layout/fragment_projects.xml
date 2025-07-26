@@ -11,13 +11,13 @@
         android:id="@+id/appBar"
         style="@style/DefaultAppBarStyle">
 
-        <!-- Título principal -->
+        <!-- Título principal exibindo a quantidade de projetos atuais -->
         <TextView
             android:id="@+id/textRepositoryCount"
             style="@style/TitleSectionStyle"
             tools:text="📂 Exibindo 10 projetos de 100 no total" />
 
-        <!-- Campo de busca por nome -->
+        <!-- Campo de busca para filtrar projetos pelo nome -->
         <EditText
             android:id="@+id/editSearch"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:padding="8dp"
             android:weightSum="2">
 
-            <!-- Campo de filtro por linguagem -->
+            <!-- Spinner para selecionar filtro de linguagem de programação -->
             <Spinner
                 android:id="@+id/spinnerLanguage"
                 android:layout_width="0dp"
@@ -43,7 +43,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1" />
 
-            <!-- Campo de ordenação por data e A-Z -->
+            <!-- Botão para escolher o tipo de ordenação dos projetos -->
             <Button
                 android:id="@+id/buttonSort"
                 android:layout_width="0dp"
@@ -52,15 +52,62 @@
                 android:backgroundTint="@color/dark_gray"
                 tools:text="Exibindo: Recentes" />
         </LinearLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Lista de projetos -->
+    <!-- Animação de carregamento exibida durante busca de projetos -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLoadingProjects"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_projects_animation"
+        tools:visibility="visible" />
+
+    <!-- RecyclerView para exibir a lista de projetos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerProjects"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Layout de erro  -->
+    <LinearLayout
+        android:id="@+id/layoutError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!-- Texto exibindo a mensagem de erro -->
+        <TextView
+            android:id="@+id/textError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="@string/error_loading_data" />
+
+        <!-- Botão "Tentar Novamente" -->
+        <Button
+            android:id="@+id/buttonRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/dark_gray"
+            android:contentDescription="@string/accessibility_try_again"
+            android:text="@string/try_again"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

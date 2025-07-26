@@ -12,12 +12,14 @@ import retrofit2.http.GET
 interface PortfolioRepositoriesApi {
 
     /**
-     * Chamada GET para o endpoint "repositories".
+     * Realiza uma requisição GET ao endpoint "repositories" para obter a lista de repositórios.
      *
-     * @return um Call contendo a lista de objetos Repository obtidos do backend.
+     * Esta função é suspensa e deve ser chamada dentro de uma coroutine.
+     *
+     * @return uma lista de objetos [Repository] obtida do backend.
      */
     @GET("repositories")
-    fun getRepositories(): Call<List<Repository>>
+    suspend fun getRepositories(): List<Repository>
 
     companion object {
         /**

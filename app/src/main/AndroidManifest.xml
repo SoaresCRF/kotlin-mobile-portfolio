@@ -30,14 +30,12 @@
             android:name=".ui.activity.IntroActivity"
             android:exported="false"
             android:screenOrientation="portrait">
-
         </activity>
 
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTask">
         </activity>
     </application>
 

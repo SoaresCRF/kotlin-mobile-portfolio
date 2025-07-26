@@ -1,28 +1,43 @@
 package com.dev.soarescrf.soares.ui.projects
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dev.soarescrf.soares.R
 import com.dev.soarescrf.soares.data.network.RetrofitClient
 import com.dev.soarescrf.soares.data.service.PortfolioRepositoriesApi
 import com.dev.soarescrf.soares.domain.model.Repository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import java.io.IOException
+import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.coroutines.coroutineContext
+import kotlin.math.pow
 
 /**
  * ViewModel responsável por buscar, armazenar e filtrar
  * a lista de repositórios/projetos do portfólio.
  */
-class ProjectsViewModel : ViewModel() {
+class ProjectsViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
+        //Tag utilizada para logs gerais relacionados ao ViewModel de projetos.
         private const val TAG = "ProjectsViewModel"
+
+        //Tag específica para logs relacionados ao ciclo de vida de jobs.
+        private const val TAG_JOB = "JOB"
+
+        //Referência ao job atual de busca de repositórios, permitindo controle e cancelamento.
+        private var fetchJob: Job? = null
 
         // Modos de ordenação
         private const val SORT_RECENT = 0
@@ -42,6 +57,24 @@ class ProjectsViewModel : ViewModel() {
     private val _repositoriesLiveData = MutableLiveData<List<Repository>>()
     val repositoriesLiveData: LiveData<List<Repository>> get() = _repositoriesLiveData
 
+    // Indica se uma operação de carregamento está em andamento.
+    // Usado para mostrar ou ocultar indicadores de progresso na UI.
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    // Armazena mensagens de erro que podem ser exibidas na interface do usuário.
+    // Pode conter null quando não há erro.
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> get() = _errorMessage
+
+    // Controla a visibilidade de um indicador de carregamento específico,
+    // usado quando a operação está demorando mais que o esperado (timeout).
+    private val _showTimeoutLoading = MutableLiveData<Boolean>()
+    val showTimeoutLoading: LiveData<Boolean> get() = _showTimeoutLoading
+
+    private val _toastEvent = MutableLiveData<String?>()
+    val toastEvent: LiveData<String?> = _toastEvent
+
     // Serviço Retrofit para acessar a API de repositórios do portfólio
     private val portfolioApiService: PortfolioRepositoriesApi =
         RetrofitClient.instance.create(PortfolioRepositoriesApi::class.java)
@@ -55,38 +88,129 @@ class ProjectsViewModel : ViewModel() {
     private var sortMode: Int = SORT_RECENT
 
     /**
-     * Busca repositórios da API via Retrofit.
-     * - Filtra repositório ignorado
-     * - Aplica filtros e atualiza LiveData
-     * - Registra logs em caso de sucesso ou falha
+     * Inicia o processo de busca e filtragem dos repositórios.
+     * Utiliza um job cancelável com tentativas automáticas usando backoff exponencial.
      */
     fun fetchRepositories() {
-        portfolioApiService.getRepositories().enqueue(object : Callback<List<Repository>> {
-            override fun onResponse(
-                call: Call<List<Repository>>,
-                response: Response<List<Repository>>
+        fetchJob?.cancel()
+
+        fetchJob = viewModelScope.launch {
+            Log.d(TAG_JOB, "Job iniciado")
+
+            prepareLoadingState()
+
+            val success = retryWithExponentialBackoff(
+                maxAttempts = 10,
+                baseDelay = 2000L,
+                maxDelay = 15000L
             ) {
-                if (response.isSuccessful) {
-                    response.body()?.let { repositories ->
-                        // Filtra repositório que deve ser ignorado
-                        allRepositories = repositories.filterNot {
-                            it.name.equals(
-                                IGNORED_REPOSITORY_NAME,
-                                ignoreCase = true
-                            )
-                        }
-                        applyFilters()
-                        Log.d(TAG, "Repositories loaded successfully.")
-                    }
-                } else {
-                    Log.e(TAG, "API Error: ${response.code()} - ${response.message()}")
-                }
+                fetchAndFilterRepositories()
             }
 
-            override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                Log.e(TAG, "API Failure: ${t.message}", t)
+            if (!success) {
+                handleFetchFailure()
+            } else {
+                _errorMessage.postValue(null)
             }
-        })
+
+            finalizeLoadingState()
+        }.also { job ->
+            job.invokeOnCompletion { throwable ->
+                Log.d(TAG_JOB, "Job finalizado. Motivo: ${throwable?.message ?: "completo"}")
+            }
+        }
+    }
+
+    /**
+     * Executa um bloco suspenso com política de tentativas baseada em backoff exponencial.
+     *
+     * @param maxAttempts Número máximo de tentativas antes de desistir.
+     * @param baseDelay Tempo base (em ms) para cálculo do delay exponencial.
+     * @param maxDelay Delay máximo permitido entre tentativas.
+     * @param block Bloco suspenso a ser executado que retorna true em caso de sucesso.
+     * @return true se o bloco teve sucesso em alguma tentativa, false caso contrário.
+     */
+    private suspend fun retryWithExponentialBackoff(
+        maxAttempts: Int,
+        baseDelay: Long,
+        maxDelay: Long,
+        block: suspend () -> Boolean
+    ): Boolean {
+        var attempt = 0
+
+        while (attempt < maxAttempts && coroutineContext.isActive) {
+            if (block()) return true
+
+            attempt++
+
+            _showTimeoutLoading.postValue(true)
+            _toastEvent.postValue("Carregando... Tentativa $attempt de $maxAttempts")
+
+            val expDelay = baseDelay * 2.0.pow(attempt).toLong()
+            val delayTime = (0..minOf(expDelay, maxDelay).toInt()).random().toLong()
+            delay(delayTime)
+        }
+
+        return false
+    }
+
+    /**
+     * Realiza a chamada para buscar os repositórios e aplica filtros,
+     * ignorando repositórios com nomes específicos.
+     *
+     * @return true se a operação foi bem-sucedida, false caso contrário.
+     */
+    private suspend fun fetchAndFilterRepositories(): Boolean = runCatching {
+        val repositories = portfolioApiService.getRepositories()
+            .filterNot { it.name.equals(IGNORED_REPOSITORY_NAME, ignoreCase = true) }
+
+        allRepositories = repositories
+        applyFilters()
+        true
+    }.onFailure { exception ->
+        if (exception !is SocketTimeoutException && exception !is IOException) {
+            throw exception
+        }
+    }.getOrDefault(false)
+
+    /**
+     * Prepara os estados de UI para o carregamento, limpando mensagens de erro e mostrando loading.
+     */
+    private fun prepareLoadingState() {
+        _isLoading.postValue(true)
+        _errorMessage.postValue(null)
+        _showTimeoutLoading.postValue(false)
+    }
+
+    /**
+     * Finaliza o estado de carregamento na UI, ocultando indicadores visuais.
+     */
+    private fun finalizeLoadingState() {
+        _isLoading.postValue(false)
+        _showTimeoutLoading.postValue(false)
+    }
+
+    /**
+     * Trata falhas de busca de dados, atualizando mensagens de erro e exibindo toast.
+     */
+    private fun handleFetchFailure() {
+        Log.e(TAG, "Falha ao carregar repositórios.")
+        _errorMessage.postValue(getApplication<Application>().getString(R.string.error_loading_data))
+        _toastEvent.postValue("Falha ao carregar os dados. Use o botão Tentar Novamente.")
+    }
+
+    /**
+     * Limpa o evento de toast atual.
+     */
+    fun clearToast() {
+        _toastEvent.postValue(null)
+    }
+
+    /**
+     * Cancela o job de busca de repositórios em andamento.
+     */
+    fun cancelFetchJob() {
+        fetchJob?.cancel()
     }
 
     /**
