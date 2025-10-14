@@ -14,6 +14,7 @@ import com.google.gson.annotations.SerializedName
  * @property createdAt data de criação do repositório (formato String ISO)
  * @property pushedAt data do último push no repositório (formato String ISO)
  * @property updatedAt data da última atualização no repositório (formato String ISO)
+ * @property zipUrl link para download do arquivo ZIP contendo a versão mais recente do repositório (gerado a partir do último push)
  */
 data class Repository(
     val id: Long,
@@ -23,7 +24,8 @@ data class Repository(
     @SerializedName("html_url") val htmlUrl: String,
     @SerializedName("created_at") val createdAt: String,
     @SerializedName("pushed_at") val pushedAt: String,
-    @SerializedName("updated_at") val updatedAt: String
+    @SerializedName("updated_at") val updatedAt: String,
+    @SerializedName("zip_url") val zipUrl: String
 ) {
 
     /**

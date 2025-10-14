@@ -1,9 +1,13 @@
 package com.dev.soarescrf.soares.ui.projects
 
+import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +70,7 @@ class ProjectsAdapter :
             setupRepositoryDescription(repository)
             setupRepositoryLanguage(repository)
             setupRepositoryLastUpdated(repository)
+            setupRepositoryZipUrl(repository)
         }
 
         /**
@@ -105,12 +110,55 @@ class ProjectsAdapter :
         }
 
         /**
-         * Aplica a cor especificada aos textos relacionados ao repositório.
+         * Configura o botão (ícone de download) para abrir o link ZIP do repositório
+         * no navegador padrão do dispositivo Android.
+         *
+         * @param repository objeto que contém o link do arquivo ZIP (repository.zipUrl)
+         */
+        private fun AdapterItemProjectsBinding.setupRepositoryZipUrl(repository: Repository) {
+
+            // Define o comportamento de clique no ícone de download
+            imageDownload.setOnClickListener {
+                val url = repository.zipUrl
+
+                // Verifica se o link não está em branco ou nulo
+                if (url.isNotBlank()) {
+                    // Cria uma intent implícita para abrir o link no navegador
+                    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+
+                    // Adiciona uma flag para abrir em uma nova tarefa (necessário fora de Activities)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                    try {
+                        // Inicia a intent — abre o link no navegador padrão do Android
+                        root.context.startActivity(intent)
+                    } catch (_: Exception) {
+                        // Caso o navegador não possa ser aberto (ex: nenhum app compatível)
+                        Toast.makeText(
+                            root.context,
+                            "Não foi possível abrir o link",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    // Exibe uma mensagem caso o link seja inválido ou vazio
+                    Toast.makeText(
+                        root.context,
+                        "Link inválido ou não disponível",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        /**
+         * Aplica a cor especificada relacionados ao repositório.
          */
         private fun AdapterItemProjectsBinding.applyTextColors(color: Int) {
             textLanguage.setTextColor(color)
             textDescription.setTextColor(color)
             textUpdatedAt.setTextColor(color)
+            imageDownload.setColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
     }
 
