@@ -20,26 +20,36 @@ import com.dev.soarescrf.soares.databinding.FragmentProjectsBinding
 import com.dev.soarescrf.soares.utils.NetworkUtils
 
 /**
- * Fragmento que exibe uma lista de projetos/repositórios.
- * Permite filtrar por linguagem, buscar por texto, e ordenar resultados.
+ * Fragmento responsável por exibir e gerenciar a lista de projetos (repositórios).
+ * Contém recursos de paginação, filtro por linguagem, busca textual e ordenação.
  */
 class ProjectsFragment : Fragment() {
-    // Binding da view para acesso aos componentes UI
+
+    /** Página atual da listagem paginada */
+    private var currentPage = 1
+
+    /** Quantidade de itens por página */
+    private val itemsPerPage = 10
+
+    /** ViewBinding para acessar as views do layout XML */
     private var _binding: FragmentProjectsBinding? = null
     private val binding get() = _binding!!
 
-    // ViewModel responsável pela lógica e dados dos projetos
+    /** ViewModel responsável por gerenciar dados e lógica da UI */
     private val viewModel: ProjectsViewModel by viewModels()
 
-    // Adapter para RecyclerView de projetos
+    /** Adapter responsável por exibir os projetos na RecyclerView */
     private lateinit var projectAdapter: ProjectsAdapter
 
-    // Adapter para Spinner de seleção de linguagem
+    /** Adapter responsável por preencher o spinner de linguagens */
     private lateinit var languageAdapter: ArrayAdapter<String>
 
-    // Flag para controlar comportamento no primeiro carregamento
+    /** Flag que indica se é o primeiro carregamento da tela */
     private var isFirstLoad = true
 
+    /**
+     * Infla o layout do fragmento.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -48,85 +58,64 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Chamado após a criação da view, realiza as configurações iniciais da UI e lógica:
-     * - Inicializa o binding da view
-     * - Configura o RecyclerView para exibir a lista de projetos
-     * - Configura o spinner para seleção de linguagem
-     * - Configura o campo de busca para filtrar projetos
-     * - Configura o botão de ordenação dos projetos
-     * - Observa os dados do ViewModel para atualizar a UI em tempo real
-     * - Dispara a busca de repositórios caso a rede esteja disponível
-     * - Configura o botão "Tentar novamente" para refazer a busca em caso de erro
+     * Configura a interface e inicializa os componentes ao criar a view.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        _binding = FragmentProjectsBinding.bind(view)
 
         setupRecyclerView()
         setupLanguageSpinner()
         setupSearchInput()
         setupSortButton()
+        setupPaginationButtons()
         observeViewModel()
 
+        // Busca os repositórios apenas se houver conexão com a internet
         fetchRepositoriesIfNetworkAvailable()
 
-        // Define o comportamento do botão "Tentar novamente", reiniciando a busca por repositórios.
+        // Botão de tentativa novamente em caso de erro
         binding.buttonRetry.setOnClickListener {
             viewModel.fetchRepositories()
         }
     }
 
     /**
-     * No retorno ao fragmento:
-     * - Caso não seja o primeiro carregamento, tenta buscar os repositórios novamente
+     * Recarrega os repositórios ao retornar ao fragmento, caso não seja o primeiro carregamento.
      */
     override fun onResume() {
         super.onResume()
-
         if (!isFirstLoad) fetchRepositoriesIfNetworkAvailable()
         isFirstLoad = false
     }
 
     /**
-     * Chamado quando a view está sendo destruída.
-     * - Cancela qualquer job ativo relacionado à busca de repositórios no ViewModel para evitar operações desnecessárias.
-     * - Limpa a referência do binding para prevenir memory leaks, garantindo que a view possa ser coletada pelo garbage collector.
+     * Cancela tarefas em andamento e limpa o binding ao destruir a view.
      */
     override fun onDestroyView() {
         super.onDestroyView()
-        // Cancela o job ativo do ViewModel
         viewModel.cancelFetchJob()
-
-        // Libera o binding
         _binding = null
     }
 
     /**
-     * Configura o RecyclerView responsável por exibir a lista de projetos.
-     *
-     * Define o layout linear, aplica otimizações de desempenho e adiciona
-     * um separador entre os itens. Também inicializa o adapter do RecyclerView.
+     * Configura o RecyclerView e associa o adapter de projetos.
      */
     private fun setupRecyclerView() = with(binding.recyclerProjects) {
         layoutManager = LinearLayoutManager(requireContext())
-        setHasFixedSize(true)
+        setHasFixedSize(true) // melhora desempenho com tamanho fixo
         addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-
         projectAdapter = ProjectsAdapter()
         adapter = projectAdapter
     }
 
     /**
-     * Configura Spinner para seleção de linguagem:
-     * - Inicializa com opção "Todas"
-     * - Atualiza filtro de linguagem no ViewModel quando selecionada
+     * Configura o Spinner de linguagens disponíveis para filtro.
      */
     private fun setupLanguageSpinner() {
         languageAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            mutableListOf(getString(R.string.all_languages)) // String "Todas" no strings.xml
+            mutableListOf(getString(R.string.all_languages))
         ).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
@@ -135,14 +124,18 @@ class ProjectsFragment : Fragment() {
             adapter = languageAdapter
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
+                    // Obtém o idioma selecionado
                     val selected = languageAdapter.getItem(position).orEmpty()
-                    // Atualiza filtro no ViewModel; "" significa "todas"
-                    viewModel.updateSelectedLanguage(if (selected == getString(R.string.all_languages)) "" else selected)
+                    val filter = if (selected == getString(R.string.all_languages)) "" else selected
+
+                    // Atualiza filtro no ViewModel
+                    viewModel.updateSelectedLanguage(filter)
+
+                    // Reinicia paginação ao alterar filtro
+                    currentPage = 1
+                    updatePagination()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -151,31 +144,49 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Configura campo de busca por texto:
-     * - Escuta mudanças no texto e atualiza consulta no ViewModel
+     * Configura o campo de busca textual por nome do projeto.
      */
     private fun setupSearchInput() {
         binding.editSearch.addTextChangedListener { text ->
-            viewModel.updateSearchQuery(text.toString())
+            viewModel.updateSearchQuery(text.toString()) // atualiza query no ViewModel
+            currentPage = 1
+            updatePagination()
         }
     }
 
     /**
-     * Configura botão de ordenação:
-     * - Ao clicar, cicla entre modos de ordenação (recente, antigo, alfabético)
-     * - Atualiza texto do botão para refletir o modo atual
+     * Configura o botão de ordenação de repositórios (recente, antigo, alfabético, etc.).
      */
     private fun setupSortButton() {
         binding.buttonSort.setOnClickListener {
-            viewModel.cycleSortMode()
+            viewModel.cycleSortMode() // alterna modo de ordenação
             updateSortButtonText()
+            currentPage = 1
+            updatePagination()
         }
     }
 
     /**
-     * Verifica conexão de rede antes de buscar os repositórios:
-     * - Se não houver internet, exibe mensagem Toast
-     * - Se houver, solicita dados ao ViewModel
+     * Configura os botões de paginação (anterior e próximo).
+     */
+    private fun setupPaginationButtons() = with(binding) {
+        buttonPreviousPage.setOnClickListener {
+            if (currentPage > 1) {
+                currentPage-- // volta uma página
+                updatePagination()
+            }
+        }
+        buttonNextPage.setOnClickListener {
+            val totalPages = calculateTotalPages()
+            if (currentPage < totalPages) {
+                currentPage++ // avança uma página
+                updatePagination()
+            }
+        }
+    }
+
+    /**
+     * Busca os repositórios se houver conexão com a internet, caso contrário exibe mensagem de erro.
      */
     private fun fetchRepositoriesIfNetworkAvailable() {
         if (NetworkUtils.isNetworkAvailable(requireContext())) {
@@ -190,65 +201,31 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Observa todos os estados do ViewModel relevantes para a UI.
+     * Observa os LiveData do ViewModel para reagir às mudanças de estado da interface.
      */
     private fun observeViewModel() {
-        observeRepositories()
-        observeLoadingState()
-        observeErrorMessages()
-        observeTimeoutLoading()
-        observeToastMessages()
-    }
-
-    /**
-     * Observa a lista de repositórios e atualiza o adapter e elementos da UI.
-     */
-    private fun observeRepositories() {
-        viewModel.repositoriesLiveData.observe(viewLifecycleOwner) { repositories ->
-            projectAdapter.submitList(repositories)
-            updateRepositoryCount(repositories.size)
+        viewModel.repositoriesLiveData.observe(viewLifecycleOwner) { _ ->
+            updatePagination()
             updateSortButtonText()
             updateLanguageOptions(viewModel.getAvailableLanguages())
             binding.layoutError.visibility = View.GONE
         }
-    }
 
-    /**
-     * Observa o estado de carregamento e oculta a área de erro durante o loading.
-     */
-    private fun observeLoadingState() {
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) binding.layoutError.visibility = View.GONE
         }
-    }
 
-    /**
-     * Observa mensagens de erro e exibe ou oculta o layout de erro conforme necessário.
-     */
-    private fun observeErrorMessages() {
         viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
-            if (!error.isNullOrBlank()) {
+            binding.layoutError.visibility = if (!error.isNullOrBlank()) {
                 binding.textError.text = error
-                binding.layoutError.visibility = View.VISIBLE
-            } else {
-                binding.layoutError.visibility = View.GONE
-            }
+                View.VISIBLE
+            } else View.GONE
         }
-    }
 
-    /**
-     * Observa se o indicador de loading por timeout deve ser exibido.
-     */
-    private fun observeTimeoutLoading() {
         viewModel.showTimeoutLoading.observe(viewLifecycleOwner) { show ->
             binding.lottieLoadingProjects.visibility = if (show) View.VISIBLE else View.GONE
         }
-    }
 
-    /**
-     * Observa eventos de toast e exibe a mensagem, garantindo acessibilidade.
-     */
-    private fun observeToastMessages() {
         viewModel.toastEvent.observe(viewLifecycleOwner) { message ->
             message?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -259,15 +236,114 @@ class ProjectsFragment : Fragment() {
     }
 
     /**
-     * Anuncia um texto para acessibilidade de forma compatível com versões antigas do Android.
-     *
-     * Essa extensão é útil para garantir que usuários com leitores de tela (como TalkBack)
-     * recebam feedback auditivo ou tátil ao interagir com a interface.
-     *
-     * @receiver View onde o evento será anunciado.
-     * @param text Texto que será anunciado pelo serviço de acessibilidade.
+     * Atualiza a lista exibida conforme a página atual e filtros aplicados.
      */
-    fun View.announceForAccessibilityCompat(text: String) {
+    private fun updatePagination() {
+        val filteredRepositories = viewModel.getFilteredRepositories()
+        val totalPages = calculateTotalPages()
+
+        // Garante que a página atual nunca exceda o total disponível
+        if (currentPage > totalPages) currentPage = totalPages
+
+        // Calcula índice de início e fim da sublista
+        val start = (currentPage - 1) * itemsPerPage
+        val end = (start + itemsPerPage).coerceAtMost(filteredRepositories.size)
+        val currentList = filteredRepositories.subList(start, end)
+
+        // Atualiza lista no adapter e rola para o topo
+        projectAdapter.submitList(currentList) {
+            // Garante scroll para o topo após atualizar a lista
+            (binding.recyclerProjects.layoutManager as? LinearLayoutManager)
+                ?.scrollToPositionWithOffset(0, 0)
+        }
+
+        // Atualiza indicador visual da página
+        binding.textPageIndicator.text = getString(
+            R.string.page_indicator_format,
+            currentPage,
+            totalPages
+        )
+
+        // Atualiza estado dos botões de navegação
+        updatePaginationButtons(totalPages)
+
+        // Atualiza contador de itens exibidos
+        updateRepositoryCount(
+            startIndex = start + 1,
+            endIndex = end,
+            totalCount = filteredRepositories.size
+        )
+    }
+
+    /**
+     * Habilita ou desabilita os botões de navegação de página conforme o estado atual.
+     */
+    private fun updatePaginationButtons(totalPages: Int) {
+        binding.buttonPreviousPage.isEnabled = currentPage > 1
+        binding.buttonNextPage.isEnabled = currentPage < totalPages
+    }
+
+    /**
+     * Calcula o número total de páginas baseado na quantidade de itens filtrados.
+     * @return número total de páginas
+     */
+    private fun calculateTotalPages(): Int {
+        val filteredRepositories = viewModel.getFilteredRepositories()
+        return if (filteredRepositories.isEmpty()) 1
+        else (filteredRepositories.size + itemsPerPage - 1) / itemsPerPage
+    }
+
+    /**
+     * Atualiza o texto exibido no botão de ordenação conforme o modo atual.
+     */
+    private fun updateSortButtonText() {
+        val sortText = when (viewModel.getSortMode()) {
+            0 -> getString(R.string.sort_recent)
+            1 -> getString(R.string.sort_oldest)
+            2 -> getString(R.string.sort_alphabetical)
+            else -> getString(R.string.sort_default)
+        }
+        binding.buttonSort.text = sortText
+    }
+
+    /**
+     * Atualiza o contador de repositórios exibido na interface e sua descrição para acessibilidade.
+     */
+    private fun updateRepositoryCount(startIndex: Int, endIndex: Int, totalCount: Int) {
+        val visualText = resources.getQuantityString(
+            R.plurals.repository_count_format,
+            totalCount, // controla o plural automaticamente
+            startIndex,
+            endIndex,
+            totalCount
+        )
+
+        val accessibleText = resources.getQuantityString(
+            R.plurals.accessibility_repository_count_format,
+            totalCount, // controla o plural automaticamente
+            startIndex,
+            endIndex,
+            totalCount
+        )
+
+        binding.textRepositoryCount.text = visualText
+        binding.textRepositoryCount.contentDescription = accessibleText
+    }
+
+    /**
+     * Atualiza a lista de linguagens disponíveis no Spinner de filtro.
+     */
+    private fun updateLanguageOptions(languages: Set<String>) {
+        val items = listOf(getString(R.string.all_languages)) + languages.sorted()
+        languageAdapter.clear()
+        languageAdapter.addAll(items)
+        languageAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Extensão para emitir mensagens de acessibilidade, garantindo compatibilidade com leitores de tela.
+     */
+    private fun View.announceForAccessibilityCompat(text: String) {
         val accessibilityManager =
             context.getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager
 
@@ -281,57 +357,5 @@ class ProjectsFragment : Fragment() {
             }
             accessibilityManager.sendAccessibilityEvent(event)
         }
-    }
-
-    /**
-     * Atualiza texto do botão de ordenação conforme o modo atual do ViewModel
-     */
-    private fun updateSortButtonText() {
-        val sortText = when (viewModel.getSortMode()) {
-            0 -> getString(R.string.sort_recent)
-            1 -> getString(R.string.sort_oldest)
-            2 -> getString(R.string.sort_alphabetical)
-            else -> getString(R.string.sort_default)
-        }
-        binding.buttonSort.text = sortText
-    }
-
-    /**
-     * Atualiza contador de repositórios exibidos e total disponível
-     *
-     * @param filteredCount quantidade de repositórios filtrados exibidos
-     */
-    private fun updateRepositoryCount(filteredCount: Int) {
-        val totalCount = viewModel.getTotalRepositoryCount()
-
-        // Texto com emoji para exibição visual
-        val visualText = getString(
-            R.string.repository_count_format,
-            filteredCount,
-            totalCount
-        )
-
-        // Texto sem emoji para leitores de tela
-        val accessibleText = getString(
-            R.string.accessibility_repository_count_format,
-            filteredCount,
-            totalCount
-        )
-
-        // Aplica no TextView
-        binding.textRepositoryCount.text = visualText
-        binding.textRepositoryCount.contentDescription = accessibleText
-    }
-
-    /**
-     * Atualiza as opções do spinner de linguagens:
-     * - Inclui sempre a opção "Todas"
-     * - Ordena alfabeticamente as linguagens disponíveis
-     */
-    private fun updateLanguageOptions(languages: Set<String>) {
-        val items = listOf(getString(R.string.all_languages)) + languages.sorted()
-        languageAdapter.clear()
-        languageAdapter.addAll(items)
-        languageAdapter.notifyDataSetChanged()
     }
 }

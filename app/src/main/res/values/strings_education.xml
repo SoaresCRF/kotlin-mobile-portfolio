@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Título -->
+    <string name="title_layout_education">🧠 Conhecimentos Instalados</string>
+    <string name="accessibility_title_layout_education">Conhecimentos Instalados</string>
+
+    <!-- Subtítulos -->
+    <string name="subtitle_layout_education_1">📚 Formação Acadêmica e Cursos</string>
+    <string name="accessibility_subtitle_layout_education_1">Formação Acadêmica e Cursos</string>
+
+    <string name="subtitle_layout_education_2">💻 Tecnologias</string>
+    <string name="accessibility_subtitle_layout_education_2">Tecnologias</string>
+
+    <!-- Cursos e Formação Acadêmica -->
+    <string name="course_1"><![CDATA[<b>Graduando em Análise e Desenvolvimento de Sistemas</b> – UNINTER]]></string>
+    <string name="course_2"><![CDATA[<b>Curso Técnico em Desenvolvimento de Sistemas</b> – SENAI/BA]]></string>
+    <string name="course_3"><![CDATA[<b>Desenvolvimento Android Completo</b> – Udemy (online)]]></string>
+    <string name="course_4"><![CDATA[<b>Desenvolvimento Web Completo</b> – Udemy (online)]]></string>
+    <string name="course_5"><![CDATA[<b>Desenvolvimento Web Moderno com JavaScript</b> – Udemy (online)]]></string>
+    <string name="course_6"><![CDATA[<b>Python 3 do Básico ao Avançado</b> – Udemy (online)]]></string>
+    <string name="course_7"><![CDATA[<b>Algoritmos e Lógica de Programação</b> – Udemy (online)]]></string>
+    <string name="course_8"><![CDATA[<b>Java POO</b> – Curso em Vídeo (online)]]></string>
+    <string name="course_9"><![CDATA[<b>Java Básico</b> – Curso em Vídeo (online)]]></string>
+    <string name="course_10"><![CDATA[<b>MySQL</b> – Curso em Vídeo (online)]]></string>
+
+    <!-- Tecnologias e Habilidades -->
+    <string name="tech_1"><![CDATA[<b>Linguagens de Programação:</b> Python, Java, PHP, Java (Mobile)]]></string>
+    <string name="tech_2"><![CDATA[<b>Desenvolvimento Web (Front-end):</b> HTML, CSS, JavaScript]]></string>
+    <string name="tech_3"><![CDATA[<b>Frameworks e Bibliotecas:</b> Django, Laravel]]></string>
+    <string name="tech_4"><![CDATA[<b>Bancos de Dados:</b> PostgreSQL, MySQL]]></string>
+    <string name="tech_5"><![CDATA[<b>Outros:</b> Git, GitHub]]></string>
+</resources>

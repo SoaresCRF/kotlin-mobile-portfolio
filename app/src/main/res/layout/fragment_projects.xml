@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.projects.ProjectsFragment">
 
-    <!-- AppBarLayout com comportamento fixo no topo -->
+    <!-- AppBarLayout fixo no topo -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         style="@style/DefaultAppBarStyle">
@@ -29,7 +29,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="8dp"
@@ -54,27 +53,64 @@
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Animação de carregamento exibida durante busca de projetos -->
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieLoadingProjects"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_projects_animation"
-        tools:visibility="visible" />
-
-    <!-- RecyclerView para exibir a lista de projetos -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerProjects"
+    <!-- Conteúdo principal: RecyclerView + paginação -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- Layout de erro  -->
+        <!-- RecyclerView para exibir a lista de projetos -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProjects"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="12dp" />
+
+        <!-- Controles de paginação fixos abaixo -->
+        <LinearLayout
+            android:id="@+id/layoutPagination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pagination_bg"
+            android:clipToPadding="false"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <!-- Botão para página anterior -->
+            <ImageButton
+                android:id="@+id/buttonPreviousPage"
+                style="@style/PaginationButton"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/previous"
+                android:src="@drawable/ic_arrow_left" />
+
+            <!-- Texto mostrando a página atual e o total de páginas -->
+            <TextView
+                android:id="@+id/textPageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_page_indicator"
+                android:textColor="@color/page_indicator"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter_regular"
+                tools:text="Página 1 de 10" />
+
+            <!-- Botão para página seguinte -->
+            <ImageButton
+                android:id="@+id/buttonNextPage"
+                style="@style/PaginationButton"
+                android:contentDescription="@string/next"
+                android:src="@drawable/ic_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Layout de erro -->
     <LinearLayout
         android:id="@+id/layoutError"
         android:layout_width="match_parent"
@@ -110,4 +146,15 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Animação de carregamento exibida durante busca de projetos -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieLoadingProjects"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_projects_animation"
+        tools:visibility="visible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

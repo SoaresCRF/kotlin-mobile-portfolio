@@ -17,4 +17,12 @@
     <!-- Ripple / efeito de toque -->
     <color name="ripple_effect">#8F8F8F</color>     <!-- Cor do ripple ao clicar -->
 
+    <!-- Layout de paginação -->
+    <color name="pagination_bg">#BDBDBD</color> <!-- Fundo do layout -->
+    <color name="gradient_start">#9E9E9E</color> <!-- Cor do gradient do background do TextView/ImageButton -->
+    <color name="gradient_end">#616161</color> <!-- Cor do gradient do background do TextView/ImageButton -->
+    <color name="ripple_color">#33BDBDBD</color> <!-- Cor do ripple ao clicar -->
+    <color name="page_indicator">#212121</color> <!-- Cor do texto mostrando a página atual e o total de páginas -->
+    <color name="bottom_pagination_active">#212121</color> <!-- Cor do botão ativo -->
+    <color name="bottom_pagination_inactive">#919191</color> <!-- Cor do botão inativo -->
 </resources>

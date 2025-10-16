@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Estado habilitado -->
+    <item android:state_enabled="true">
+        <ripple android:color="@color/ripple_color">
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:angle="45" android:endColor="@color/gradient_end" android:startColor="@color/gradient_start" />
+                    <corners android:radius="16dp" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+
+    <!-- Estado desabilitado -->
+    <item android:drawable="@android:color/transparent" android:state_enabled="false" />
+
+</selector>

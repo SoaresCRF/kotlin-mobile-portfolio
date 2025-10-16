@@ -248,12 +248,6 @@ class ProjectsViewModel(application: Application) : AndroidViewModel(application
     fun getSortMode(): Int = sortMode
 
     /**
-     * Retorna a quantidade total de repositórios carregados,
-     * antes da aplicação de filtros.
-     */
-    fun getTotalRepositoryCount(): Int = allRepositories.size
-
-    /**
      * Retorna o conjunto de linguagens disponíveis
      * na lista completa de repositórios.
      */
@@ -312,4 +306,11 @@ class ProjectsViewModel(application: Application) : AndroidViewModel(application
             Log.w(TAG, "Date parsing error for: $this", e)
             Date(0)
         }
+
+    /**
+     * Retorna a lista atual de repositórios após aplicação de filtros.
+     */
+    fun getFilteredRepositories(): List<Repository> {
+        return _repositoriesLiveData.value ?: emptyList()
+    }
 }

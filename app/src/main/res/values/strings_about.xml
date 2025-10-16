@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Título -->
+    <string name="title_layout_about">🐞 Debugando o Dev por trás dos códigos…</string>
+    <string name="accessibility_title_layout_about">Debugando o Dev por trás dos códigos…</string>
+
+    <!-- Biografia (Sobre Mim) -->
+    <string name="about_paragraph_1"><![CDATA[
+        Olá, 🌎! Me chamo <b>Matheus Soares</b> 👨‍💻. Sou estudante de <b>Ensino Superior</b> em <b>Análise e Desenvolvimento de Sistemas</b>, com grande interesse no universo da <b>Tecnologia</b> e da <b>Programação</b>. 💡🖥️
+    ]]></string>
+    <string name="accessibility_about_paragraph_1"><![CDATA[
+        Olá! Me chamo Matheus Soares. Sou estudante de Ensino Superior em Análise e Desenvolvimento de Sistemas, com grande interesse no universo da Tecnologia e da Programação.
+    ]]></string>
+
+    <string name="about_paragraph_2"><![CDATA[
+        Já tive contato com diversas áreas da <b>Tecnologia da Informação</b>, como <b>Desenvolvimento Web</b> e <b>Mobile</b>. Gosto de explorar tanto o que o usuário vê quanto o que acontece por trás das aplicações, navegando entre <b>Front-end</b> e <b>Back-end</b>, além de trabalhar com <b>Banco de Dados</b> e outras tecnologias relacionadas. 🚀
+    ]]></string>
+    <string name="accessibility_about_paragraph_2"><![CDATA[
+        Já tive contato com diversas áreas da Tecnologia da Informação, como Desenvolvimento Web e Mobile. Gosto de explorar tanto o que o usuário vê quanto o que acontece por trás das aplicações, navegando entre Front-end e Back-end, além de trabalhar com Banco de Dados e outras tecnologias relacionadas.
+    ]]></string>
+
+    <string name="about_paragraph_3"><![CDATA[
+        Tenho facilidade em transformar <b>ideias</b> em <b>soluções práticas</b> e me envolvo ativamente em cada etapa dos projetos — do <b>planejamento</b> até a <b>entrega final</b>. Busco compreender as <b>necessidades</b> e <b>objetivos</b> para desenvolver <b>soluções eficientes</b> e <b>funcionais</b>. 🛠️
+    ]]></string>
+    <string name="accessibility_about_paragraph_3"><![CDATA[
+        Tenho facilidade em transformar ideias em soluções práticas e me envolvo ativamente em cada etapa dos projetos — do planejamento até a entrega final. Busco compreender as necessidades e objetivos para desenvolver soluções eficientes e funcionais.
+    ]]></string>
+
+    <string name="about_paragraph_4"><![CDATA[
+        Ainda estou explorando o vasto campo da <b>T.I.</b>, mantendo a mente aberta para diferentes caminhos e oportunidades. 🔍 Gosto de experimentar novas <b>tecnologias</b>, aprender com a <b>prática</b> e seguir evoluindo como <b>desenvolvedor</b>, sempre em busca de <b>desafios</b> que me façam crescer <b>pessoalmente</b> e <b>profissionalmente</b>. 📈
+    ]]></string>
+    <string name="accessibility_about_paragraph_4"><![CDATA[
+        Ainda estou explorando o vasto campo da T.I., mantendo a mente aberta para diferentes caminhos e oportunidades. Gosto de experimentar novas tecnologias, aprender com a prática e seguir evoluindo como desenvolvedor, sempre em busca de desafios que me façam crescer pessoalmente e profissionalmente.
+    ]]></string>
+
+    <string name="about_paragraph_5"><![CDATA[
+        Fora do mundo da programação, sou fã de <b>esportes</b> e <b>games</b>. Curto jogar online 🎮, sou torcedor do <b>Flamengo</b> ❤️🖤 e do <b>Real Madrid</b> 🤍🖤, além de ser grande admirador do <b>Cristiano Ronaldo</b> ⚽👑 e entusiasta de <b>xadrez</b>♟️!
+    ]]></string>
+    <string name="accessibility_about_paragraph_5"><![CDATA[
+        Fora do mundo da programação, sou fã de esportes e games. Curto jogar online, sou torcedor do Flamengo e do Real Madrid, além de ser grande admirador do Cristiano Ronaldo e entusiasta de xadrez!
+    ]]></string>
+</resources>

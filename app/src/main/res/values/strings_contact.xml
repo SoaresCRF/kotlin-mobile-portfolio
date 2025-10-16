@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Título -->
+    <string name="title_layout_contact">👾 Curtiu? Aguardo seu "ping"! 😉</string>
+    <string name="accessibility_title_layout_contact">Curtiu? Aguardo seu "ping"!</string>
+
+    <string name="title_contact">Um Jovem desenvolvedor…</string>
+
+    <string name="subtitle_contact_me">Entre em contato</string>
+
+    <string name="email">E-mail</string>
+    <string name="accessibility_email">Enviar E-mail</string>
+
+    <string name="github">GitHub</string>
+    <string name="accessibility_github">Acessar perfil no GitHub</string>
+
+    <string name="instagram">Instagram</string>
+    <string name="accessibility_instagram">Acessar perfil no Instagram</string>
+
+    <string name="linkedin">LinkedIn</string>
+    <string name="accessibility_linkedin">Acessar perfil no LinkedIn</string>
+
+    <string name="subtitle_application">Aplicativo</string>
+    <string name="accessibility_play_store">Exibir o aplicativo na Play Store</string>
+
+    <string name="play_store">Ver na loja</string>
+
+    <!-- Dialog (Configuração) -->
+    <string name="dialog_title_intro_config">Preferência de Inicialização</string>
+
+    <string name="dialog_message_intro_config">Deseja exibir a tela inicial sempre que o aplicativo for iniciado?</string>
+    <string name="accessibility_review_intro_screen">Rever tela inicial</string>
+
+    <string name="dialog_message_checkbox_intro_config">Exibir tela inicial na inicialização do aplicativo</string>
+    <string name="accessibility_confirmation_action">Salvar escolha</string>
+</resources>

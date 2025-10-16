@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Título -->
+    <plurals name="repository_count_format">
+        <item quantity="one">📂 Exibindo projeto %1$d de %3$d no total</item>
+        <item quantity="other">📂 Exibindo projetos %1$d–%2$d de %3$d no total</item>
+    </plurals>
+    <plurals name="accessibility_repository_count_format">
+        <item quantity="one">Exibindo projeto %1$d de %3$d no total</item>
+        <item quantity="other">Exibindo projetos %1$d–%2$d de %3$d no total</item>
+    </plurals>
+
+    <!-- Filtros, Busca e Modos de Ordenação -->
+    <string name="all_languages">Todas</string>
+
+    <string name="search_by_name">🔍 Buscar por nome…</string>
+    <string name="accessibility_search_by_name">Buscar por nome…</string>
+
+    <string name="sort_recent">Exibindo: Recentes</string>
+
+    <string name="sort_oldest">Exibindo: Antigos</string>
+
+    <string name="sort_alphabetical">Exibindo: A–Z</string>
+
+    <string name="sort_default">Exibindo</string>
+
+    <!-- Mensagens Gerais -->
+    <string name="no_internet_connection">Sem conexão com a internet.</string>
+
+    <string name="error_loading_data">Erro ao carregar os dados.</string>
+
+    <string name="try_again">Tentar Novamente</string>
+    <string name="accessibility_try_again">Erro ao carregar os dados. Clique para tentar novamente.</string>
+
+    <string name="last_updated_at">Atualizado em: %1$s</string>
+
+    <string name="accessibility_download">Clique para realizar o download do projeto pelo seu navegador padrão.</string>
+
+    <!-- Paginação manual com botões -->
+    <string name="previous">Anterior</string>
+
+    <string name="next">Próximo</string>
+
+    <string name="page_indicator_format">Página %1$d de %2$d</string>
+</resources>

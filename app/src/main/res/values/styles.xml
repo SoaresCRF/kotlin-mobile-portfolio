@@ -2,13 +2,10 @@
 <resources>
 
     <!-- ============================================================= -->
-    <!-- Estilo para o AppBarLayout padrão                            -->
+    <!-- Estilo para o AppBarLayout padrão -->
     <!-- ============================================================= -->
 
-    <!--
-        Estilo reutilizável para AppBars em diversas seções.
-        Define largura, altura, cor de fundo, elevação e paddings.
-    -->
+    <!-- Estilo reutilizável para AppBars em diversas seções -->
     <style name="DefaultAppBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -18,13 +15,24 @@
     </style>
 
     <!-- ============================================================= -->
-    <!-- Estilos para a seção "Sobre Mim" (About)                     -->
+    <!-- Estilo para Títulos de Seções Gerais -->
     <!-- ============================================================= -->
 
-    <!--
-        Estilo para parágrafos na tela "Sobre Mim"
-        Define layout, fonte, cor, espaçamento e seleção de texto.
-    -->
+    <!-- Estilo reutilizável para títulos das seções (Sobre Mim, Formação, Projetos, Contato) -->
+    <style name="TitleSectionStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ============================================================= -->
+    <!-- Estilos para a seção "Sobre Mim" (About) -->
+    <!-- ============================================================= -->
+
+    <!-- Estilo para parágrafos na tela "Sobre Mim" -->
     <style name="AboutParagraph">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -39,13 +47,21 @@
     </style>
 
     <!-- ============================================================= -->
-    <!-- Estilos para a seção "Formação" (Education)                  -->
+    <!-- Estilos para a seção "Formação" (Education) -->
     <!-- ============================================================= -->
 
-    <!--
-        Estilo para parágrafos na tela "Formação"
-        Similar ao About, com margem inferior ajustada.
-    -->
+    <!-- Estilo para subtítulos da seção Educação -->
+    <style name="SubtitleEducationStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Estilo para parágrafos na tela "Formação". Similar ao About, com margem inferior ajustada. -->
     <style name="EducationParagraph">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -59,26 +75,34 @@
         <item name="android:textIsSelectable">true</item>
     </style>
 
-    <!--
-        Estilo para subtítulos da seção Educação
-    -->
-    <style name="SubtitleEducationStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:layout_marginBottom">24dp</item>
-        <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+    <!-- ============================================================= -->
+    <!-- EEstilos para a seção de Projetos -->
+    <!-- ============================================================= -->
+
+    <!-- Botões de paginação -->
+    <style name="PaginationButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/btn_gradient_ripple</item>
+        <item name="android:tint">@color/btn_pagination_selector</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <!-- ============================================================= -->
-    <!-- Estilos para a seção de Contato                              -->
+    <!-- Estilos para a seção de Contato -->
     <!-- ============================================================= -->
 
-    <!--
-        Estilo para os títulos da seção de contato (ex: "Email", "Redes Sociais")
-    -->
+    <!-- Estilo de Dialog com fundo transparente e sem borda visível -->
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!-- Estilo para os subtítulos da seção de contato -->
     <style name="ContactTitleText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -88,9 +112,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!--
-        Estilo para links de contato (e-mail, redes sociais)
-    -->
+    <!-- Estilo para links de contato -->
     <style name="ContactLinkText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -101,36 +123,4 @@
         <item name="android:drawablePadding">3dp</item>
         <item name="android:drawableTint">@color/dark_gray</item>
     </style>
-
-    <!-- ============================================================= -->
-    <!-- Estilo para Títulos de Seções Gerais                         -->
-    <!-- ============================================================= -->
-
-    <!--
-        Estilo reutilizável para títulos de seções (ex: Educação, Projetos, etc)
-    -->
-    <style name="TitleSectionStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">sans-serif-black</item>
-        <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- ============================================================= -->
-    <!-- Estilos para Dialogs Personalizados                          -->
-    <!-- ============================================================= -->
-
-    <!--
-        Estilo de Dialog com fundo transparente e sem borda visível.
-    -->
-    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-    </style>
-
 </resources>
