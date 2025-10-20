@@ -29,8 +29,6 @@ Baixe a versão mais recente do aplicativo para testar diretamente no seu dispos
 
 ## 📌 Melhorias futuras
 - Publicação na Google Play Store.
-- Paginação na tela de exibição dos projetos.
-- Download direto do código fonte atualizado dos repositórios em formato .zip.  
 
 ## 📄 Licença
 Este projeto está sob a licença MIT.
