@@ -121,3 +121,6 @@ fastlane/test_output
 
 #arquivo dotenv
 .env
+
+# Local restore guide: kept in the Drive backup, not versioned
+/RESTORE.md
